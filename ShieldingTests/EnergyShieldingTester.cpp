@@ -80,9 +80,14 @@ void main () {
 		EnergyRange(2, 2, 1, 1, 1000,3000, 25);
 		return 0;
 	}
-
-	cout << "would you like to use a particle preset? y/n" << endl;
-	cin >> preset;
+	while(preset != "y" && preset != "n") {
+		cout << "would you like to use a particle preset? y/n" << endl;
+		cin >> preset;
+		if (preset != "y" && preset != "n")
+		{
+			cout << "error, wrong input type" << endl;
+		}		
+	}
 	if (preset == "y")
 	{
 		while (presetType != 1 && presetType != 2) {
@@ -103,7 +108,8 @@ void main () {
 			}		
 		}
 	}
-	else{
+	else if (preset == "n")
+	{
 		cout << "Please enter m1, m2 in amu and Z1, Z2 as integers" << endl;
 		cout << "m1" << endl;
 		cin >> m1;
@@ -114,6 +120,7 @@ void main () {
 		cout << "Z2" << endl;
 		cin >> Z2;
 	}	
+
 	if (type == 1)
 	{
 		int E;
