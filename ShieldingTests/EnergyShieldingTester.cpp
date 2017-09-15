@@ -19,10 +19,14 @@ void SingleEnergy (double m1, double m2, double Z1, double Z2, double E, double 
 	double Uej						= Ue *eVtoJ;
 	double fusionProb 				= FCSSolver.returnFusionCross(Ej, m1, m2, Z1, Z2);
 	double shieldedFusionProb		= FCSSolver.returnFusionCross(Ej+Uej, m1, m2, Z1, Z2);
+	double mr 						= FCSSolver.returnReducedMass(m1, m2);
+	double Er 						= FCSSolver.returnReducedEnergy(m1, mr, Ej);
 	double enhancementFactor		= shieldedFusionProb/fusionProb;
 	cout << "Unshielded: " 			<< fusionProb << endl;
 	cout << "Shielded: " 			<< shieldedFusionProb << endl;
-	cout << "E/Ue: " 				<< Ej/Uej << endl;
+	cout << "mr: "					<< mr << endl;
+	cout << "Er: "					<< mr << endl;
+	cout << "Er/Ue: " 				<< Er/Uej << endl;
 	cout << "EnhancementFactor: " 	<< enhancementFactor << endl;
 }
 
@@ -125,7 +129,7 @@ void main () {
 	{
 		int E;
 		double Ue;
-		cout << "please enter E in eV" << endl;
+		cout << "please enter E in eV (Energy of incoming particle, not com energy)" << endl;
 		cin >> E;
 		cout << "please enter Ue in eV" << endl;
 		cin >> Ue;

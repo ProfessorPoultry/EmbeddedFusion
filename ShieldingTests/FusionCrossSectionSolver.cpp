@@ -14,7 +14,10 @@ double FusionCrossSectionSolver::returnReducedMass(double m1, double m2) {
 	// cout << "mr = " << mr << " m1 = " << m1 << " m2 = " << m2 << endl;
 	return mr;
 }
-
+double FusionCrossSectionSolver::returnReducedEnergy(double m1, double mr, double E) {
+	double Er = E *mr/m1;
+	return Er;
+}
 double FusionCrossSectionSolver::returnGamowEnergy(double mr, int Za, int Zb) {
 	double subVar1 = pi * alpha * Za * Zb; // /137 due to alpha
 	double Eg = 2 * mr * pow(c, 2) * pow(subVar1,2);
@@ -25,7 +28,8 @@ double FusionCrossSectionSolver::returnGamowEnergy(double mr, int Za, int Zb) {
 double FusionCrossSectionSolver::returnFusionCross(double E, double m1, double m2, int Za, int Zb) {
 	double mr 	= returnReducedMass(m1, m2);
 	double Eg 	= returnGamowEnergy(mr, Za, Zb);
-	double P 	= exp(-sqrt(Eg/E));
+	double Er 	= returnReducedEnergy(m1, mr, E);
+	double P 	= exp(-sqrt(Eg/Er));
 	//cout << "T = " << T << endl;
 	return P;
 }

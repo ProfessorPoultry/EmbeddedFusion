@@ -12,6 +12,7 @@ class FusionCrossSectionSolver {
 		double mr;
 		double Eg;
 		double returnReducedMass(double, double);
+		double returnReducedEnergy(double, double, double);
 		double returnGamowEnergy(double, int, int);
 		double returnFusionCross(double, double, double, int, int);
 };
