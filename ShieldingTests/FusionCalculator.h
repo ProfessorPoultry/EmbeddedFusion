@@ -18,9 +18,9 @@ class FusionCalculator {
 	double rate;
 
 	public:
-		void SingleEnergy (double , double , double , double , double,  double);
+		void SingleEnergy (double , double , int , int , int,  double, double, double, double, double, double, double, double, double, double);
 		void EnergyRange (double , double , double , double , int, int, double);
- 		double ReactionRate (double , double , double , double , double , double , double, double);
+ 		double ReactionRate (double , double , double , double , int , int , double, double, double );
 };
 
 #endif
