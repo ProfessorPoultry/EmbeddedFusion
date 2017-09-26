@@ -9,21 +9,18 @@ static const double eVtoJ 		= 1.60218e-19;
 FusionCrossSectionSolver FCSSolver;
 Maxwellian Maxwell;
 
-void FusionCalculator::SingleEnergy (double m1, double m2, int Z1, int Z2, int E, double Ue,
-	double A1, double A2, double A3, double A4, double A5, double B1, double B2, double B3, double B4) {
+void FusionCalculator::SingleEnergy (double m1, double m2, int Z1, int Z2, int E, double Ue, std::vector<int> SvarArray) {
 
 	double Ej 						= E * eVtoJ;
 	double Uej						= Ue *eVtoJ;
-
-	FCSSolver.setSFactorVars(A1, A2, A3, A4, A5, B1, B2, B3, B4);
-	FCSSolver.calculateFusionCross(Ej, m1, m2, Z1, Z2);
+	FCSSolver.calculateFusionCross(Ej, 0, m1, m2, Z1, Z2, SvarArray);
 	double fusionProb 				= FCSSolver.P;
-	FCSSolver.calculateFusionCross(Ej+Uej, m1, m2, Z1, Z2);
+	FCSSolver.calculateFusionCross(Ej, Uej, m1, m2, Z1, Z2, SvarArray);
 	double shieldedFusionProb		= FCSSolver.P;
 	double mr 						= FCSSolver.mr;
 	double Er 						= FCSSolver.Er;
 	double enhancementFactor		= shieldedFusionProb/fusionProb;
-	cout << "Sfactor: "				<< FCSSolver.S;
+	cout << "Sfactor: "				<< FCSSolver.S << endl;
 	cout << "Unshielded: " 			<< fusionProb << endl;
 	cout << "Shielded: " 			<< shieldedFusionProb << endl;
 	cout << "mr: "					<< mr << "kg" << endl;
@@ -65,6 +62,6 @@ double FusionCalculator::ReactionRate (double n1, double n2, double m1, double m
 	// SingleEnergy(m1, m2, Z1, Z2, E, Ue, A1, A2, A3, A4, A5, B1, B2, B3, B4);
 	// double vr = Maxwell.ConvertKineticEnergyToSpeed(Er, mr);
 	// double rate = n1*n2*shieldedFusionProb*vr;
-	// cout << "Rate = " << rate << endl;
+	// cout << "Rate = " << rate << endl; //10^14/10^16ish density for incoming beam of deuterium
 	// return rate;
 }

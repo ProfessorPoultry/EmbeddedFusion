@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string>
+#include <vector>
 
 class FusionCrossSectionSolver {
 	public:
@@ -31,11 +32,11 @@ class FusionCrossSectionSolver {
 		double P;
 
 		void calculateReducedMass(double, double);
-		void calculateReducedEnergy(double, double, double);
+		void calculateReducedEnergy(double, double);
 		void calculateGamowEnergy(double, int, int);
-		void setSFactorVars(double, double, double, double, double, double, double, double, double);
-		void calculateSFactor(double, double);
-		void calculateFusionCross(double, double, double, int, int);
+		void setSFactorVars(int);
+		void calculateSFactor(double, std::vector<int>);
+		void calculateFusionCross(double,double, double, double, int, int, std::vector<int>);
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -23,19 +24,10 @@ main () {
 	int Z1;
 	int	Z2;
 
-	double A1;
-	double A2;
-	double A3;
-	double A4;
-	double A5;
-	double B1;
-	double B2;
-	double B3;
-	double B4;
-
 	string preset = "";
 	int presetType;
 	int type;
+	std::vector<int> SvarArray;
 
 	while(!(type <= 4 && type >= 1)) {
 		cout 	<< "Would you like to find: " 
@@ -74,27 +66,9 @@ main () {
 				m2 = m1;
 				Z1 = 1;
 				Z2 = 1;
-				//D(t,n)alpha
-				double A1 = 6.927e4;
-				double A2 = 7.454e8;
-				double A3 = 2.05E6;
-				double A4 = 5.2002e4;
-				double A5 = 0;
-				double B1 = 6.38e1;
-				double B2 = -9.95e-1;
-				double B3 = 6.981e-5;
-				double B4 = 1.728e-4;
-
-				//D(d,p)T
-				// double A1 = 5.7501e16;
-				// double A2 = 2.5226e3;
-				// double A3 = 4.5566e1;
-				// double A4 = 0;
-				// double A5 = 0;
-				// double B1 = -3.1995e-3;
-				// double B2 = -8.5530e-6;
-				// double B3 = 5.9014e-8;
-				// double B4 = 0;
+				SvarArray.push_back(0);
+				SvarArray.push_back(1);
+				
 			}
 			else if(presetType == 2){				
 				break;
@@ -125,7 +99,7 @@ main () {
 		cin >> E;
 		cout << "please enter Ue in eV" << endl;
 		cin >> Ue;
-		FuseCalc.SingleEnergy(m1, m2, Z1, Z2, E, Ue, A1, A2, A3, A4, A5, B1, B2, B3, B4);
+		FuseCalc.SingleEnergy(m1, m2, Z1, Z2, E, Ue, SvarArray);
 	}
 	else if (type == 2)
 	{
@@ -154,7 +128,7 @@ main () {
 		cin >> n1;
 		cout << "please enter n2" << endl; //Paladium density 112976 n/m^3, assuming 1 deuterium per pal atom on surface
 		cin >> n2;
-		FuseCalc.SingleEnergy(m1, m2, Z1, Z2, E, Ue, A1, A2, A3, A4, A5, B1, B2, B3, B4);
+		FuseCalc.SingleEnergy(m1, m2, Z1, Z2, E, Ue, SvarArray);
 
 	}
 	else {

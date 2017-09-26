@@ -5,20 +5,23 @@
 #include <fstream>
 #include <stdio.h>
 #include <math.h>
+#include <string>
+#include <vector>
 
 class FusionCalculator {
-	double Ej;
-	double Uej;
-	double fusionProb;
-	double shieldedFusionProb;
-	double mr;
-	double Er;
-	double enhancementFactor;
-	double vr;
-	double rate;
+	
 
 	public:
-		void SingleEnergy (double , double , int , int , int,  double, double, double, double, double, double, double, double, double, double);
+		double Ej;
+		double Uej;
+		double fusionProb;
+		double shieldedFusionProb;
+		double mr;
+		double Er;
+		double enhancementFactor;
+		double vr;
+		double rate;
+		void SingleEnergy (double , double , int , int , int,  double, std::vector<int>);
 		void EnergyRange (double , double , double , double , int, int, double);
  		double ReactionRate (double , double , double , double , int , int , double, double, double );
 };
