@@ -95,7 +95,8 @@ void FusionCrossSectionSolver::calculateFusionCross(double E, double Ue, double 
 	calculateGamowEnergy(mr, Za, Zb);
 	calculateReducedEnergy(m1,E);
 	calculateSFactor(Ue, SvarArray);
-	double SofEonE =S/(Er+Ue);
+	//double SofEonE =S/(Er+Ue);
+	double SofEonE = 1;
 	FusionCrossSectionSolver::P = SofEonE*exp(-sqrt(Eg/(Er+Ue)));
 	//cout << "T = " << T << endl;
 }

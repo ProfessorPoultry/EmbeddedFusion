@@ -16,7 +16,7 @@ void FusionCalculator::SingleEnergy (double m1, double m2, int Z1, int Z2, int E
 	FCSSolver.calculateFusionCross(Ej, 0, m1, m2, Z1, Z2, SvarArray);
 	double fusionProb 				= FCSSolver.P;
 	FCSSolver.calculateFusionCross(Ej, Uej, m1, m2, Z1, Z2, SvarArray);
-	double shieldedFusionProb		= FCSSolver.P;
+	FusionCalculator::shieldedFusionProb		= FCSSolver.P;
 	double mr 						= FCSSolver.mr;
 	double Er 						= FCSSolver.Er;
 	double enhancementFactor		= shieldedFusionProb/fusionProb;
@@ -58,10 +58,11 @@ void FusionCalculator::EnergyRange (double m1, double m2, double Z1, double Z2, 
 	// cout << "Done, see text files in ShieldingTests";
 }
 
-double FusionCalculator::ReactionRate (double n1, double n2, double m1, double m2, int Z1, int Z2, double E, double Ue, double S) {	
-	// SingleEnergy(m1, m2, Z1, Z2, E, Ue, A1, A2, A3, A4, A5, B1, B2, B3, B4);
-	// double vr = Maxwell.ConvertKineticEnergyToSpeed(Er, mr);
-	// double rate = n1*n2*shieldedFusionProb*vr;
-	// cout << "Rate = " << rate << endl; //10^14/10^16ish density for incoming beam of deuterium
-	// return rate;
+double FusionCalculator::ReactionRate (double n1, double n2, double m1, double m2, int Z1, int Z2, int E, double Ue, std::vector<int> SvarArray) {	
+	SingleEnergy(m1, m2, Z1, Z2, E, Ue, SvarArray);
+	double vr = Maxwell.ConvertKineticEnergyToSpeed(Er, mr);
+	cout << "shieldedFusionProb " << FusionCalculator::shieldedFusionProb << endl;
+	double rate = n1*n2*shieldedFusionProb*vr;
+	cout << "Rate = " << rate << endl; //10^14/10^16ish density for incoming beam of deuterium	
+	return rate;
 }

@@ -23,7 +23,7 @@ class FusionCalculator {
 		double rate;
 		void SingleEnergy (double , double , int , int , int,  double, std::vector<int>);
 		void EnergyRange (double , double , double , double , int, int, double);
- 		double ReactionRate (double , double , double , double , int , int , double, double, double );
+ 		double ReactionRate (double , double , double , double , int , int , int, double, std::vector<int>);
 };
 
 #endif

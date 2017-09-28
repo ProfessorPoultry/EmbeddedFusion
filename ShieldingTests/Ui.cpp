@@ -91,16 +91,6 @@ main () {
 		cin >> Z2;
 	}	
 
-	if (type == 1)
-	{
-		int E;
-		double Ue;
-		cout << "please enter E in eV (Energy of incoming particle, not com energy)" << endl;
-		cin >> E;
-		cout << "please enter Ue in eV" << endl;
-		cin >> Ue;
-		FuseCalc.SingleEnergy(m1, m2, Z1, Z2, E, Ue, SvarArray);
-	}
 	else if (type == 2)
 	{
 		int Emin;
@@ -114,7 +104,7 @@ main () {
 		cin >> Ue;
 		FuseCalc.EnergyRange(m1, m2, Z1, Z2, Emin, Emax, Ue);
 	}
-	else if (type == 3)
+	else
 	{
 		int E;
 		double Ue;
@@ -123,13 +113,18 @@ main () {
 		cout << "please enter E in eV (Energy of incoming particle, not com energy)" << endl;
 		cin >> E;
 		cout << "please enter Ue in eV" << endl;
-		cin >> Ue;
-		cout << "please enter n1" << endl; //
-		cin >> n1;
-		cout << "please enter n2" << endl; //Paladium density 112976 n/m^3, assuming 1 deuterium per pal atom on surface
-		cin >> n2;
-		FuseCalc.SingleEnergy(m1, m2, Z1, Z2, E, Ue, SvarArray);
-
+		if (type == 1) {
+			FuseCalc.SingleEnergy(m1, m2, Z1, Z2, E, Ue, SvarArray);
+		}
+		else if (type == 3) 
+		{
+			cin >> Ue;
+			cout << "please enter n1" << endl; //
+			cin >> n1;
+			cout << "please enter n2" << endl; //Paladium density 112976 n/m^3, assuming 1 deuterium per pal atom on surface
+			cin >> n2;
+			FuseCalc.ReactionRate(n1, n2, m1, m2, Z1, Z2, E, Ue, SvarArray);
+		}
 	}
 	else {
 		cout << "ERROR" <<endl;
