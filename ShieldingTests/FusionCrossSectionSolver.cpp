@@ -25,69 +25,69 @@ void FusionCrossSectionSolver::setSFactorVars(int fusionType) {
 	switch(fusionType){
 		case 0:
 			//D(d,p)Tr
-			A1 = 5.5576e4;
-			A2 = 2.1054e2;
-			A3 = -3.2638e-2;
-			A4 = 1.4987e-6;
-			A5 = 1.8181e-10;
-			B1 = 0;
-			B2 = 0;
-			B3 = 0;
-			B4 = 0;
+			FusionCrossSectionSolver::A1 = 5.5576e4;
+			FusionCrossSectionSolver::A2 = 2.1054e2;
+			FusionCrossSectionSolver::A3 = -3.2638e-2;
+			FusionCrossSectionSolver::A4 = 1.4987e-6;
+			FusionCrossSectionSolver::A5 = 1.8181e-10;
+			FusionCrossSectionSolver::B1 = 0;
+			FusionCrossSectionSolver::B2 = 0;
+			FusionCrossSectionSolver::B3 = 0;
+			FusionCrossSectionSolver::B4 = 0;
 			break;
 		case 1:
 			//D(d,n)3He
-			A1 = 5.3701e4;
-			A2 = 3.3027e2;
-			A3 = -1.2706-2;
-			A4 = 2.9327e-5;
-			A5 = -2.5151e-9;
-			B1 = 0;
-			B2 = 0;
-			B3 = 0;
-			B4 = 0;
+			FusionCrossSectionSolver::A1 = 5.3701e4;
+			FusionCrossSectionSolver::A2 = 3.3027e2;
+			FusionCrossSectionSolver::A3 = -1.2706e-1;
+			FusionCrossSectionSolver::A4 = 2.9327e-5;
+			FusionCrossSectionSolver::A5 = -2.5151e-9;
+			FusionCrossSectionSolver::B1 = 0;
+			FusionCrossSectionSolver::B2 = 0;
+			FusionCrossSectionSolver::B3 = 0;
+			FusionCrossSectionSolver::B4 = 0;
 			break;
 		case 2:
 			// D(t,n)alpha
-			A1 = 6.927e4;
-			A2 = 7.454e8;
-			A3 = 2.05E6;
-			A4 = 5.2002e4;
-			A5 = 0;
-			B1 = 6.38e1;
-			B2 = -9.95e-1;
-			B3 = 6.981e-5;
-			B4 = 1.728e-4;
+			FusionCrossSectionSolver::A1 = 6.927e4;
+			FusionCrossSectionSolver::A2 = 7.454e8;
+			FusionCrossSectionSolver::A3 = 2.05E6;
+			FusionCrossSectionSolver::A4 = 5.2002e4;
+			FusionCrossSectionSolver::A5 = 0;
+			FusionCrossSectionSolver::B1 = 6.38e1;
+			FusionCrossSectionSolver::B2 = -9.95e-1;
+			FusionCrossSectionSolver::B3 = 6.981e-5;
+			FusionCrossSectionSolver::B4 = 1.728e-4;
 			break;
 		case 3:
 			//D(3He,n)alpha
-			A1 = 5.7501e16;
-			A2 = 2.5226e3;
-			A3 = 4.5566e1;
-			A4 = 0;
-			A5 = 0;
-			B1 = -3.1995e-3;
-			B2 = -8.5530e-6;
-			B3 = 5.9014e-8;
-			B4 = 0;
+			FusionCrossSectionSolver::A1 = 5.7501e16;
+			FusionCrossSectionSolver::A2 = 2.5226e3;
+			FusionCrossSectionSolver::A3 = 4.5566e1;
+			FusionCrossSectionSolver::A4 = 0;
+			FusionCrossSectionSolver::A5 = 0;
+			FusionCrossSectionSolver::B1 = -3.1995e-3;
+			FusionCrossSectionSolver::B2 = -8.5530e-6;
+			FusionCrossSectionSolver::B3 = 5.9014e-8;
+			FusionCrossSectionSolver::B4 = 0;
 		break;
 	}
 }
 void FusionCrossSectionSolver::calculateSFactor(double Ue, std::vector<int> SvarArray) {
-	double S = 0;
+	FusionCrossSectionSolver::S = 0;
 	for (int i = 0; i < (SvarArray.size()); ++i)
 	{
 		setSFactorVars(SvarArray[i]);
-		double EreV = (Er + Ue)/(eVtoJ);
-		double Snumerator = (A1+EreV*(A2+EreV*(A3+EreV*(A4 + EreV *A5))));
-		double Sdenominator = (1+EreV*(B1+EreV*(B2+EreV*(B3 + EreV * B4))));
-		S += (Snumerator/Sdenominator*eVtoJ);
-		cout << "A1= " << A1 << endl;
-		cout << "Snumerator = " << Snumerator << endl;
-		cout << "S = " << S << endl;
+		double ErkeV = (Er + Ue)/(1000*eVtoJ);
+		double Snumerator = (A1+ErkeV*(A2+ErkeV*(A3+ErkeV*(A4 + ErkeV *A5))));
+		double Sdenominator = (1+ErkeV*(B1+ErkeV*(B2+ErkeV*(B3 + ErkeV * B4))));
+		FusionCrossSectionSolver::S += (Snumerator/Sdenominator);
+		// cout << "A1= " << A1 << endl;
+		// cout << "Snumerator = " << Snumerator << endl;
+		// cout << "SinEv = " << S << endl;
 	}	
 	FusionCrossSectionSolver::S = (S/SvarArray.size());
-	cout << "finalS = " << S << endl;
+	// cout << "finalS = " << S << endl;
 }
 	
 void FusionCrossSectionSolver::calculateFusionCross(double E, double Ue, double m1, double m2, int Za, int Zb, std::vector<int> SvarArray) {
@@ -95,8 +95,8 @@ void FusionCrossSectionSolver::calculateFusionCross(double E, double Ue, double 
 	calculateGamowEnergy(mr, Za, Zb);
 	calculateReducedEnergy(m1,E);
 	calculateSFactor(Ue, SvarArray);
-	//double SofEonE =S/(Er+Ue);
-	double SofEonE = 1;
-	FusionCrossSectionSolver::P = SofEonE*exp(-sqrt(Eg/(Er+Ue)));
+	double SofEonE =S/((Er+Ue)/eVtoJ);
+	// double SofEonE = 1;
+	FusionCrossSectionSolver::P = SofEonE*exp(-sqrt(Eg/(Er+Ue)))*10e-28;
 	//cout << "T = " << T << endl;
 }
