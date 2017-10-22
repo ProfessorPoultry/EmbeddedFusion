@@ -19,7 +19,7 @@ void FusionCrossSectionSolver::calculateReducedEnergy(double m1, double E){
 }
 void FusionCrossSectionSolver::calculateGamowEnergy(double mr, int Za, int Zb) {
 	double subVar1 = pi * alpha * Za * Zb; // /137 due to alpha
-	FusionCrossSectionSolver::Eg = 2 * mr * pow(c, 2) * pow(subVar1,2);
+	FusionCrossSectionSolver::Eg = 2 * mr * pow(c, 2) * pow(subVar1,2)/eVtoJ;
 }
 void FusionCrossSectionSolver::setSFactorVars(int fusionType) {
 	switch(fusionType){
@@ -78,7 +78,7 @@ void FusionCrossSectionSolver::calculateSFactor(double Ue, std::vector<int> Svar
 	for (int i = 0; i < (SvarArray.size()); ++i)
 	{
 		setSFactorVars(SvarArray[i]);
-		double ErkeV = (Er + Ue)/(1000*eVtoJ);
+		double ErkeV = (Er + Ue)/(1000);
 		double Snumerator = (A1+ErkeV*(A2+ErkeV*(A3+ErkeV*(A4 + ErkeV *A5))));
 		double Sdenominator = (1+ErkeV*(B1+ErkeV*(B2+ErkeV*(B3 + ErkeV * B4))));
 		FusionCrossSectionSolver::S += (Snumerator/Sdenominator);
@@ -86,7 +86,7 @@ void FusionCrossSectionSolver::calculateSFactor(double Ue, std::vector<int> Svar
 		// cout << "Snumerator = " << Snumerator << endl;
 		// cout << "SinEv = " << S << endl;
 	}	
-	FusionCrossSectionSolver::S = (S/SvarArray.size());
+	FusionCrossSectionSolver::S = (S/SvarArray.size())*1000;
 	// cout << "finalS = " << S << endl;
 }
 	
@@ -95,8 +95,8 @@ void FusionCrossSectionSolver::calculateFusionCross(double E, double Ue, double 
 	calculateGamowEnergy(mr, Za, Zb);
 	calculateReducedEnergy(m1,E);
 	calculateSFactor(Ue, SvarArray);
-	double SofEonE =S/((Er+Ue)/eVtoJ);
+	double SofEonE =S/(Er+Ue);
 	// double SofEonE = 1;
-	FusionCrossSectionSolver::P = SofEonE*exp(-sqrt(Eg/(Er+Ue)))*10e-28;
+	FusionCrossSectionSolver::P = SofEonE*exp(-sqrt(Eg/(Er+Ue))); //*10^-28
 	//cout << "T = " << T << endl;
 }
