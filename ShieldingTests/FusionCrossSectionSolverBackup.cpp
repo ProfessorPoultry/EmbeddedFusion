@@ -61,7 +61,7 @@ void FusionCrossSectionSolver::setSFactorVars(int fusionType) {
 			break;
 		case 3:
 			//D(3He,n)alpha
-			FusionCrossSectionSolver::A1 = 5.7501e6;
+			FusionCrossSectionSolver::A1 = 5.7501e16;
 			FusionCrossSectionSolver::A2 = 2.5226e3;
 			FusionCrossSectionSolver::A3 = 4.5566e1;
 			FusionCrossSectionSolver::A4 = 0;
@@ -73,41 +73,30 @@ void FusionCrossSectionSolver::setSFactorVars(int fusionType) {
 		break;
 	}
 }
-void FusionCrossSectionSolver::calculateSFactor(int type) {
+void FusionCrossSectionSolver::calculateSFactor(double Ue, std::vector<int> SvarArray) {
 	FusionCrossSectionSolver::S = 0;
-	bool SfactorDone = false;
-	while(!SfactorDone){
-		setSFactorVars(type);
-		double EkeV = (E)/(1000);
-		double Snumerator = (A1+EkeV*(A2+EkeV*(A3+EkeV*(A4 + EkeV *A5))));
-		double Sdenominator = (1+EkeV*(B1+EkeV*(B2+EkeV*(B3 + EkeV * B4))));
-		FusionCrossSectionSolver::S += (Snumerator/Sdenominator)*1000;
+	for (int i = 0; i < (SvarArray.size()); ++i)
+	{
+		setSFactorVars(SvarArray[i]);
+		double ErkeV = (Er + Ue)/(1000);
+		double Snumerator = (A1+ErkeV*(A2+ErkeV*(A3+ErkeV*(A4 + ErkeV *A5))));
+		double Sdenominator = (1+ErkeV*(B1+ErkeV*(B2+ErkeV*(B3 + ErkeV * B4))));
+		FusionCrossSectionSolver::S += (Snumerator/Sdenominator);
 		// cout << "A1= " << A1 << endl;
 		// cout << "Snumerator = " << Snumerator << endl;
 		// cout << "SinEv = " << S << endl;
-		if (type == 0)
-		{
-			type = 1;
-		}
-		else{
-			SfactorDone = true;
-		}
 	}	
-	if (type == 1)
-	{
-		FusionCrossSectionSolver::S = (FusionCrossSectionSolver::S/2);
-	}
+	FusionCrossSectionSolver::S = (S/SvarArray.size())*1000;
 	// cout << "finalS = " << S << endl;
 }
-
 	
-void FusionCrossSectionSolver::calculateFusionCross(double E, double Ue, double m1, double m2, int Za, int Zb, int type) {
-	FusionCrossSectionSolver::E = E;
+void FusionCrossSectionSolver::calculateFusionCross(double E, double Ue, double m1, double m2, int Za, int Zb, std::vector<int> SvarArray) {
 	calculateReducedMass(m1, m2);
 	calculateGamowEnergy(mr, Za, Zb);
-	calculateSFactor(type);
-	double SofEonE =S/sqrt(E*(E+Ue));
+	calculateReducedEnergy(m1,E);
+	calculateSFactor(Ue, SvarArray);
+	double SofEonE =S/(Er+Ue);
 	// double SofEonE = 1;
-	FusionCrossSectionSolver::P = SofEonE*exp(-sqrt(Eg/(E+Ue))); //*10^-28
+	FusionCrossSectionSolver::P = SofEonE*exp(-sqrt(Eg/(Er+Ue))); //*10^-28
 	//cout << "T = " << T << endl;
 }

@@ -22,14 +22,14 @@ void main() {
 	std::vector<int> 		SvarArray;
 	SvarArray.push_back(0);
 	SvarArray.push_back(1);
-	ofstream Sfactors ("Sfactors.txt");
-	ofstream Energies ("Energies.txt");
-	for (int E = 500; E < 3000; E=E+1)
+	ofstream Sfactors ("SFactor/Sfactors.txt");
+	ofstream Energies ("SFactor/Energies.txt");
+	for (int E = 5000; E < 20000; E=E+1)
 	{
 		FuseSolver.calculateReducedMass(m1, m2);
 		FuseSolver.calculateReducedEnergy(m1, E);
-		FuseSolver.calculateSFactor(0, SvarArray);
+		FuseSolver.calculateSFactor(SvarArray);
 		Sfactors << FuseSolver.S << endl;
-		Energies << E << endl;
+		Energies << FuseSolver.Er << endl;
 	}
 }

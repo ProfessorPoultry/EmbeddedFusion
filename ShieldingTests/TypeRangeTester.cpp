@@ -26,13 +26,37 @@ void main() {
 	double	n2 				= 1.66e15; //density of palladium surface 
 	// double  n2				= 1e14; //density of tokamak
 
-	//Tritium
+	//deuterium
 	double 	m1 				= 2 * m_proton;
-	double 	m2 				= 3 * m_proton;
+	double 	m2 				= m1;
 	double 	Z1 				= 1;
 	double 	Z2 				= 1;
-	int 	type			= 2; //Tritium
+	int 	type			= 0; //Deuterium
 	FuseCalc.EnergyRange(m1, m2, Z1, Z2, Emin, Emax, Erange, Ue, type);
+	
+	//Tritium
+	m1 				= 2 * m_proton;
+	m2 				= 3 * m_proton;
+	Z1 				= 1;
+	Z2 				= 1;
+	type			= 2; //Tritium
+
+	
+	FuseCalc.EnergyRange(m1, m2, Z1, Z2, Emin, Emax, Erange, Ue, type);
+
+	//Helium3
+	m1 				= 2 * m_proton;
+	m2 				= 3 * m_proton;
+	Z1 				= 1;
+	Z2 				= 2;
+	type			= 3; //Helium3
+
+	FuseCalc.EnergyRange(m1, m2, Z1, Z2, Emin, Emax, Erange, Ue, type);
+
+
+
+
+
 
 
 	// double  n2				= 1;

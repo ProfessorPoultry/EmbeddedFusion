@@ -25,6 +25,7 @@ class FusionCrossSectionSolver {
 		//dependent variables
 		double T;
 		double mr;
+		double E;
 		double Er;
 		double Eg;
 		double S;
@@ -35,8 +36,8 @@ class FusionCrossSectionSolver {
 		void calculateReducedEnergy(double, double);
 		void calculateGamowEnergy(double, int, int);
 		void setSFactorVars(int);
-		void calculateSFactor(double, std::vector<int>);
-		void calculateFusionCross(double,double, double, double, int, int, std::vector<int>);
+		void calculateSFactor(int);
+		void calculateFusionCross(double,double, double, double, int, int, int);
 };
 
 #endif
