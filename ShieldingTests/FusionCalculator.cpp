@@ -17,7 +17,6 @@ void FusionCalculator::SingleEnergy (double m1, double m2, int Z1, int Z2, int E
 	FCSSolver.calculateFusionCross(E, Ue, m1, m2, Z1, Z2, type);
 	FusionCalculator::shieldedFusionProb		= FCSSolver.P;
 	double mr 						= FCSSolver.mr;
-	double Er 						= FCSSolver.Er;
 	double enhancementFactor		= shieldedFusionProb/fusionProb;
 	cout << "Shielded Sfactor: "	<< FCSSolver.S << endl;
 	cout << "Unshielded: " 			<< fusionProb << endl;
@@ -25,9 +24,7 @@ void FusionCalculator::SingleEnergy (double m1, double m2, int Z1, int Z2, int E
 	cout << "mr: "					<< mr << "kg" << endl;
 	cout << "Eg: "					<< FCSSolver.Eg << endl;
 	cout << "E: "					<< E  << "eV" << endl;
-	cout << "Er: "					<< Er << "eV" << endl;
-	cout << "Er: "					<< Er*eVtoJ << "J" << endl;
-	cout << "Er/Ue: " 				<< Er/Ue << endl;
+	cout << "E/Ue: " 				<< E/Ue << endl;
 	cout << "EnhancementFactor: " 	<< enhancementFactor << endl;
 }
 

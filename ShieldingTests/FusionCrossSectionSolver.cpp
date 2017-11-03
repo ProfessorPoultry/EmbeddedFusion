@@ -108,6 +108,6 @@ void FusionCrossSectionSolver::calculateFusionCross(double E, double Ue, double 
 	calculateSFactor(type);
 	double SofEonE =S/sqrt(E*(E+Ue));
 	// double SofEonE = 1;
-	FusionCrossSectionSolver::P = SofEonE*exp(-sqrt(Eg/(E+Ue))); //*10^-28
+	FusionCrossSectionSolver::P = SofEonE*exp(-sqrt(Eg/(E+Ue))) *1e-31; //*10^-28
 	//cout << "T = " << T << endl;
 }

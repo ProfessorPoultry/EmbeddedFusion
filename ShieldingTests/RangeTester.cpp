@@ -19,11 +19,11 @@ void main() {
 	Maxwellian Maxwellian;
 	
 	int  	Emin 			= 1000;
-	int 	Emax			= 500000;
-	int 	Erange 			= 5000;
+	int 	Emax			= 3000;
+	int 	Erange 			= 1000;
 	double 	Ue 				= 800; 
-	double  n1				= 1;
-	double	n2 				= 1.66e15; //density of palladium surface 
+	double  n1				= 1e16;
+	double	n2 				= 6.76e22; //density of palladium surface 
 	// double  n2				= 1e14; //density of tokamak
 
 	//Tritium

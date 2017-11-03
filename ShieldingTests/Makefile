@@ -1,2 +1,2 @@
 all:
-	g++ RangeTester.cpp FusionCalculator.cpp FusionCrossSectionSolver.cpp Maxwellian.cpp
+	g++ UeRangeTester.cpp FusionCalculator.cpp FusionCrossSectionSolver.cpp Maxwellian.cpp
